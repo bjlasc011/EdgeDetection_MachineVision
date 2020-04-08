@@ -78,10 +78,10 @@
             // 
             this.imageBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.imageBox1.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
-            this.imageBox1.Location = new System.Drawing.Point(0, 30);
-            this.imageBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.imageBox1.Location = new System.Drawing.Point(0, 24);
+            this.imageBox1.Margin = new System.Windows.Forms.Padding(4);
             this.imageBox1.Name = "imageBox1";
-            this.imageBox1.Size = new System.Drawing.Size(820, 555);
+            this.imageBox1.Size = new System.Drawing.Size(820, 561);
             this.imageBox1.TabIndex = 2;
             this.imageBox1.TabStop = false;
             // 
@@ -93,7 +93,7 @@
             this.imageToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1091, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1091, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -104,27 +104,27 @@
             this.pauseToolStripMenuItem,
             this.stopToolStripMenuItem});
             this.videoToolStripMenuItem.Name = "videoToolStripMenuItem";
-            this.videoToolStripMenuItem.Size = new System.Drawing.Size(62, 26);
+            this.videoToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.videoToolStripMenuItem.Text = "Video";
             // 
             // startToolStripMenuItem1
             // 
             this.startToolStripMenuItem1.Name = "startToolStripMenuItem1";
-            this.startToolStripMenuItem1.Size = new System.Drawing.Size(129, 26);
+            this.startToolStripMenuItem1.Size = new System.Drawing.Size(105, 22);
             this.startToolStripMenuItem1.Text = "Start";
             this.startToolStripMenuItem1.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.pauseToolStripMenuItem.Text = "Pause";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -135,13 +135,13 @@
             this.analyzeToolStripMenuItem,
             this.setModelToolStripMenuItem});
             this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
-            this.imageToolStripMenuItem.Size = new System.Drawing.Size(65, 26);
+            this.imageToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.imageToolStripMenuItem.Text = "Image";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -152,34 +152,34 @@
             this.cannyToolStripMenuItem,
             this.eigenVectorsToolStripMenuItem});
             this.analyzeToolStripMenuItem.Name = "analyzeToolStripMenuItem";
-            this.analyzeToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.analyzeToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.analyzeToolStripMenuItem.Text = "Analyze";
             // 
             // hueGrayToolStripMenuItem
             // 
             this.hueGrayToolStripMenuItem.Name = "hueGrayToolStripMenuItem";
-            this.hueGrayToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.hueGrayToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.hueGrayToolStripMenuItem.Text = "Hue-Gray";
             this.hueGrayToolStripMenuItem.Click += new System.EventHandler(this.hueGrayToolStripMenuItem_Click);
             // 
             // cannyToolStripMenuItem
             // 
             this.cannyToolStripMenuItem.Name = "cannyToolStripMenuItem";
-            this.cannyToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.cannyToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.cannyToolStripMenuItem.Text = "Canny";
             this.cannyToolStripMenuItem.Click += new System.EventHandler(this.cannyToolStripMenuItem_Click);
             // 
             // eigenVectorsToolStripMenuItem
             // 
             this.eigenVectorsToolStripMenuItem.Name = "eigenVectorsToolStripMenuItem";
-            this.eigenVectorsToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.eigenVectorsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.eigenVectorsToolStripMenuItem.Text = "EigenVectors";
             this.eigenVectorsToolStripMenuItem.Click += new System.EventHandler(this.eigenVectorsToolStripMenuItem_Click);
             // 
             // setModelToolStripMenuItem
             // 
             this.setModelToolStripMenuItem.Name = "setModelToolStripMenuItem";
-            this.setModelToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.setModelToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.setModelToolStripMenuItem.Text = "Set Model";
             this.setModelToolStripMenuItem.Click += new System.EventHandler(this.setModelToolStripMenuItem_Click);
             // 
@@ -197,9 +197,9 @@
             this.groupBox1.Controls.Add(this.colorRadio);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox1.Location = new System.Drawing.Point(828, 49);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(255, 309);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
@@ -208,10 +208,11 @@
             // featuresRadio
             // 
             this.featuresRadio.AutoSize = true;
+            this.featuresRadio.Enabled = false;
             this.featuresRadio.Location = new System.Drawing.Point(17, 276);
-            this.featuresRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.featuresRadio.Margin = new System.Windows.Forms.Padding(4);
             this.featuresRadio.Name = "featuresRadio";
-            this.featuresRadio.Size = new System.Drawing.Size(144, 21);
+            this.featuresRadio.Size = new System.Drawing.Size(135, 20);
             this.featuresRadio.TabIndex = 23;
             this.featuresRadio.Text = "Features Tracking";
             this.featuresRadio.UseVisualStyleBackColor = true;
@@ -221,9 +222,9 @@
             // 
             this.binaryRadio.AutoSize = true;
             this.binaryRadio.Location = new System.Drawing.Point(17, 247);
-            this.binaryRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.binaryRadio.Margin = new System.Windows.Forms.Padding(4);
             this.binaryRadio.Name = "binaryRadio";
-            this.binaryRadio.Size = new System.Drawing.Size(69, 21);
+            this.binaryRadio.Size = new System.Drawing.Size(64, 20);
             this.binaryRadio.TabIndex = 22;
             this.binaryRadio.Text = "Binary";
             this.binaryRadio.UseVisualStyleBackColor = true;
@@ -233,9 +234,9 @@
             // 
             this.laplacianRadio.AutoSize = true;
             this.laplacianRadio.Location = new System.Drawing.Point(17, 219);
-            this.laplacianRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.laplacianRadio.Margin = new System.Windows.Forms.Padding(4);
             this.laplacianRadio.Name = "laplacianRadio";
-            this.laplacianRadio.Size = new System.Drawing.Size(90, 21);
+            this.laplacianRadio.Size = new System.Drawing.Size(85, 20);
             this.laplacianRadio.TabIndex = 21;
             this.laplacianRadio.Text = "Laplacian";
             this.laplacianRadio.UseVisualStyleBackColor = true;
@@ -245,9 +246,9 @@
             // 
             this.sobelRadio.AutoSize = true;
             this.sobelRadio.Location = new System.Drawing.Point(17, 191);
-            this.sobelRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sobelRadio.Margin = new System.Windows.Forms.Padding(4);
             this.sobelRadio.Name = "sobelRadio";
-            this.sobelRadio.Size = new System.Drawing.Size(65, 21);
+            this.sobelRadio.Size = new System.Drawing.Size(62, 20);
             this.sobelRadio.TabIndex = 20;
             this.sobelRadio.Text = "Sobel";
             this.sobelRadio.UseVisualStyleBackColor = true;
@@ -259,7 +260,7 @@
             this.checkBox1.Location = new System.Drawing.Point(45, 135);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(103, 21);
+            this.checkBox1.Size = new System.Drawing.Size(97, 20);
             this.checkBox1.TabIndex = 19;
             this.checkBox1.Text = "Accumulate";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -269,9 +270,9 @@
             // 
             this.hueGrayRadio.AutoSize = true;
             this.hueGrayRadio.Location = new System.Drawing.Point(17, 162);
-            this.hueGrayRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.hueGrayRadio.Margin = new System.Windows.Forms.Padding(4);
             this.hueGrayRadio.Name = "hueGrayRadio";
-            this.hueGrayRadio.Size = new System.Drawing.Size(95, 21);
+            this.hueGrayRadio.Size = new System.Drawing.Size(87, 20);
             this.hueGrayRadio.TabIndex = 4;
             this.hueGrayRadio.Text = "Hue- Gray";
             this.hueGrayRadio.UseVisualStyleBackColor = true;
@@ -281,9 +282,9 @@
             // 
             this.grayRadio.AutoSize = true;
             this.grayRadio.Location = new System.Drawing.Point(17, 53);
-            this.grayRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grayRadio.Margin = new System.Windows.Forms.Padding(4);
             this.grayRadio.Name = "grayRadio";
-            this.grayRadio.Size = new System.Drawing.Size(99, 21);
+            this.grayRadio.Size = new System.Drawing.Size(93, 20);
             this.grayRadio.TabIndex = 3;
             this.grayRadio.Text = "Gray Scale";
             this.grayRadio.UseVisualStyleBackColor = true;
@@ -293,9 +294,9 @@
             // 
             this.contourRadio.AutoSize = true;
             this.contourRadio.Location = new System.Drawing.Point(17, 81);
-            this.contourRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.contourRadio.Margin = new System.Windows.Forms.Padding(4);
             this.contourRadio.Name = "contourRadio";
-            this.contourRadio.Size = new System.Drawing.Size(79, 21);
+            this.contourRadio.Size = new System.Drawing.Size(72, 20);
             this.contourRadio.TabIndex = 2;
             this.contourRadio.Text = "Contour";
             this.contourRadio.UseVisualStyleBackColor = true;
@@ -306,9 +307,9 @@
             this.cannyHierarchyRadio.AutoSize = true;
             this.cannyHierarchyRadio.Checked = true;
             this.cannyHierarchyRadio.Location = new System.Drawing.Point(17, 110);
-            this.cannyHierarchyRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cannyHierarchyRadio.Margin = new System.Windows.Forms.Padding(4);
             this.cannyHierarchyRadio.Name = "cannyHierarchyRadio";
-            this.cannyHierarchyRadio.Size = new System.Drawing.Size(134, 21);
+            this.cannyHierarchyRadio.Size = new System.Drawing.Size(125, 20);
             this.cannyHierarchyRadio.TabIndex = 1;
             this.cannyHierarchyRadio.TabStop = true;
             this.cannyHierarchyRadio.Text = "Canny Hierarchy";
@@ -319,9 +320,9 @@
             // 
             this.colorRadio.AutoSize = true;
             this.colorRadio.Location = new System.Drawing.Point(17, 25);
-            this.colorRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.colorRadio.Margin = new System.Windows.Forms.Padding(4);
             this.colorRadio.Name = "colorRadio";
-            this.colorRadio.Size = new System.Drawing.Size(62, 21);
+            this.colorRadio.Size = new System.Drawing.Size(58, 20);
             this.colorRadio.TabIndex = 0;
             this.colorRadio.Text = "Color";
             this.colorRadio.UseVisualStyleBackColor = true;
@@ -334,7 +335,7 @@
             this.gaussLabel.Location = new System.Drawing.Point(11, 14);
             this.gaussLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.gaussLabel.Name = "gaussLabel";
-            this.gaussLabel.Size = new System.Drawing.Size(49, 17);
+            this.gaussLabel.Size = new System.Drawing.Size(47, 16);
             this.gaussLabel.TabIndex = 5;
             this.gaussLabel.Text = "Gauss";
             // 
@@ -344,7 +345,7 @@
             this.gaussTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gaussTxt.ForeColor = System.Drawing.SystemColors.WindowText;
             this.gaussTxt.Location = new System.Drawing.Point(107, 9);
-            this.gaussTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gaussTxt.Margin = new System.Windows.Forms.Padding(4);
             this.gaussTxt.Name = "gaussTxt";
             this.gaussTxt.Size = new System.Drawing.Size(133, 22);
             this.gaussTxt.TabIndex = 6;
@@ -356,7 +357,7 @@
             this.thresh1Txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.thresh1Txt.ForeColor = System.Drawing.SystemColors.WindowText;
             this.thresh1Txt.Location = new System.Drawing.Point(107, 41);
-            this.thresh1Txt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.thresh1Txt.Margin = new System.Windows.Forms.Padding(4);
             this.thresh1Txt.Name = "thresh1Txt";
             this.thresh1Txt.Size = new System.Drawing.Size(133, 22);
             this.thresh1Txt.TabIndex = 8;
@@ -369,7 +370,7 @@
             this.label2.Location = new System.Drawing.Point(11, 46);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 17);
+            this.label2.Size = new System.Drawing.Size(57, 16);
             this.label2.TabIndex = 7;
             this.label2.Text = "Thresh1";
             // 
@@ -379,7 +380,7 @@
             this.thresh2Txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.thresh2Txt.ForeColor = System.Drawing.SystemColors.WindowText;
             this.thresh2Txt.Location = new System.Drawing.Point(107, 73);
-            this.thresh2Txt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.thresh2Txt.Margin = new System.Windows.Forms.Padding(4);
             this.thresh2Txt.Name = "thresh2Txt";
             this.thresh2Txt.Size = new System.Drawing.Size(133, 22);
             this.thresh2Txt.TabIndex = 10;
@@ -392,7 +393,7 @@
             this.label3.Location = new System.Drawing.Point(11, 78);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 17);
+            this.label3.Size = new System.Drawing.Size(57, 16);
             this.label3.TabIndex = 9;
             this.label3.Text = "Thresh2";
             // 
@@ -402,7 +403,7 @@
             this.binaryMaxTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.binaryMaxTxt.ForeColor = System.Drawing.SystemColors.WindowText;
             this.binaryMaxTxt.Location = new System.Drawing.Point(107, 137);
-            this.binaryMaxTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.binaryMaxTxt.Margin = new System.Windows.Forms.Padding(4);
             this.binaryMaxTxt.Name = "binaryMaxTxt";
             this.binaryMaxTxt.Size = new System.Drawing.Size(133, 22);
             this.binaryMaxTxt.TabIndex = 14;
@@ -415,7 +416,7 @@
             this.label5.Location = new System.Drawing.Point(11, 142);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 17);
+            this.label5.Size = new System.Drawing.Size(74, 16);
             this.label5.TabIndex = 13;
             this.label5.Text = "Binary Max";
             // 
@@ -425,7 +426,7 @@
             this.binaryMinTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.binaryMinTxt.ForeColor = System.Drawing.SystemColors.WindowText;
             this.binaryMinTxt.Location = new System.Drawing.Point(107, 105);
-            this.binaryMinTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.binaryMinTxt.Margin = new System.Windows.Forms.Padding(4);
             this.binaryMinTxt.Name = "binaryMinTxt";
             this.binaryMinTxt.Size = new System.Drawing.Size(133, 22);
             this.binaryMinTxt.TabIndex = 12;
@@ -438,14 +439,14 @@
             this.label6.Location = new System.Drawing.Point(11, 110);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 17);
+            this.label6.Size = new System.Drawing.Size(70, 16);
             this.label6.TabIndex = 11;
             this.label6.Text = "Binary Min";
             // 
             // analyzeBttn
             // 
             this.analyzeBttn.Location = new System.Drawing.Point(165, 167);
-            this.analyzeBttn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.analyzeBttn.Margin = new System.Windows.Forms.Padding(4);
             this.analyzeBttn.Name = "analyzeBttn";
             this.analyzeBttn.Size = new System.Drawing.Size(75, 28);
             this.analyzeBttn.TabIndex = 17;
@@ -478,7 +479,7 @@
             this.txtPanel.Controls.Add(this.label3);
             this.txtPanel.Controls.Add(this.label6);
             this.txtPanel.Location = new System.Drawing.Point(828, 374);
-            this.txtPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPanel.Margin = new System.Windows.Forms.Padding(4);
             this.txtPanel.Name = "txtPanel";
             this.txtPanel.Size = new System.Drawing.Size(255, 206);
             this.txtPanel.TabIndex = 19;
@@ -487,7 +488,7 @@
             // 
             this.imageBox2.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
             this.imageBox2.Location = new System.Drawing.Point(624, 49);
-            this.imageBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.imageBox2.Margin = new System.Windows.Forms.Padding(4);
             this.imageBox2.Name = "imageBox2";
             this.imageBox2.Size = new System.Drawing.Size(175, 117);
             this.imageBox2.TabIndex = 2;
@@ -508,7 +509,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "VideoProcessing";
             this.Text = "Video Processing";
             this.Load += new System.EventHandler(this.Form1_Load);

@@ -1,25 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using Emgu.CV;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
-using Emgu.CV.Stitching;
 using VideoAnalysis;
 
 namespace VideoProcessing
 {
     public partial class VideoProcessing : Form
     {
-        private int[] steps = new int[13] { 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192 };
         private int gauss = 7;
         private int thresh1 = 20;
         private int thresh2 = 25;
@@ -29,20 +20,9 @@ namespace VideoProcessing
         private VideoCapture capture;
 
         private Dictionary<string, Bgr> pallette = new Dictionary<string, Bgr>() { };
-        private Gray binMin;
-        private Gray binMax;
         private Gray black = new Gray(0);
         private MCvScalar redScalar = new MCvScalar(0, 0, 255);
-
-        private bool isGray;
-        private bool isColor;
-        private bool isContour;
-        private bool isCannyHierarchy = true;
-        private bool isHueShapes;
-        private bool isLaplacion;
-        private bool isSobel;
-        private bool isBinary;
-        private bool isFeatures;
+        private VideoMode videoMode = VideoMode.Canny;
         private Image<Bgr, byte> imgSrc;
         private Image<Gray, byte> imgGray;
         private Mat model;
@@ -52,6 +32,8 @@ namespace VideoProcessing
         private NodeList nodeList = new NodeList();
         private int accumLimit = 4;
         private bool isAccumulating = false;
+        private Gray BinMax { get; set; }
+        private Gray BinMin { get; set; }
 
         public VideoProcessing()
         {
@@ -82,14 +64,14 @@ namespace VideoProcessing
 
         private void ImageGrabbed(object sender, EventArgs e)
         {
-            Mat m = new Mat();
-            capture.Retrieve(m);
-            imgHeight = m.Height;
-            imgWidth = m.Width;
-            using (Image<Bgr, byte> frame = new Image<Bgr, byte>(m.Bitmap))
+            Mat mat = new Mat();
+            capture.Retrieve(mat);
+            imgHeight = mat.Height;
+            imgWidth = mat.Width;
+            using (Image<Bgr, byte> frame = new Image<Bgr, byte>(mat.Bitmap))
             using (Image<Gray, byte> graySmooth = frame.Convert<Gray, byte>().SmoothGaussian(gauss))
             {
-                if (isCannyHierarchy)
+                if (videoMode == VideoMode.Canny)
                 {
                     Image<Gray, byte>[] cannies = new Image<Gray, byte>[]
                     {
@@ -112,7 +94,10 @@ namespace VideoProcessing
                             cannies[4] = accumFrames.SmoothGaussian(1);
                             temp.SetValue(pallette["green3"], cannies[4]);
                         }
-                        else temp.SetValue(pallette["green3"], cannies[1]);
+                        else
+                        {
+                            temp.SetValue(pallette["green3"], cannies[1]);
+                        }
                         temp.SetValue(pallette["green2"], cannies[0]);
                         temp.SetValue(pallette["green1"], cannies[2]);
                         temp.SetValue(pallette["green0"], cannies[3]);
@@ -121,77 +106,65 @@ namespace VideoProcessing
                     }
                 }
                 Image<Gray, byte> canny = new Image<Gray, byte>(imgWidth, imgHeight);
-                if (!isHueShapes)
+                if (videoMode != VideoMode.Hue_Gray)
                 {
                     canny = graySmooth.Canny(thresh1, thresh2);
                 }
-                if (isGray)
+                switch(videoMode)
                 {
-                    graySmooth.SetValue(black, canny);
-                    imageBox1.Image = graySmooth.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
-                    canny.Dispose();
-                    return;
-                }
-                else if (isColor)
-                {
-                    using (Image<Bgr, byte> frameOverlay = frame.Clone())
-                    {
-                        frameOverlay.SetValue(pallette[Color.LawnGreen.Name], canny);
-                        imageBox1.Image = frameOverlay.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
-                        frameOverlay.Dispose();
+                    case (VideoMode.Gray):
+                        graySmooth.SetValue(black, canny);
+                        imageBox1.Image = graySmooth.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
                         canny.Dispose();
-                    }
-                    return;
-                }
-                else if (isContour)
-                {
-                    Image<Bgr, byte> temp = new Image<Bgr, byte>(imgWidth, imgHeight);
-                    GetContours(graySmooth, out temp);
-                    imageBox1.Image = temp.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
-                    temp.Dispose();
-                    return;
-                }
-                else if (isHueShapes)
-                {
-                    Image<Gray, byte> hueImgGray = new Image<Gray, byte>(imgWidth, imgHeight);
-                    using (Image<Bgr, byte> temp = new Image<Bgr, byte>(m.Bitmap))
-                    {
-                        GetHueGray(temp, out hueImgGray);
-                        imageBox1.Image = hueImgGray.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
-                    }
-                    return;
-                }
-                else if (isLaplacion)
-                {
-                    using (Image<Gray, byte> gray = frame.Convert<Gray, byte>())
-                    using (Image<Gray, float> temp = gray.Laplace(5))
-                    {
-                        imageBox1.Image = temp.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
-                    }
-                    return;
-                }
-                else if (isSobel)
-                {
-                    using (Image<Gray, byte> gray = frame.Convert<Gray, byte>())
-                    using (Image<Gray, float> temp = gray.Sobel(1, 1, 5))
-                    {
-                        imageBox1.Image = temp.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
-                    }
-                    return;
-                }
-                else if (isBinary)
-                {
-                    using (Image<Gray, byte> gray = frame.Convert<Gray, byte>())
-                    using (Image<Gray, byte> imgGray = new Image<Gray, byte>(imgWidth, imgHeight))
-                    {
-                        CvInvoke.Threshold(gray, imgGray, binaryMin, binaryMax, Emgu.CV.CvEnum.ThresholdType.Binary);
-                        imageBox1.Image = imgGray.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
-                        return;
-                    }
-                }
-                else if (isFeatures)
-                {
-                    imageBox1.Image = DrawFeatures(m);
+                        break;
+                    case (VideoMode.Color):
+                        using (Image<Bgr, byte> frameOverlay = frame.Clone())
+                        {
+                            frameOverlay.SetValue(pallette[Color.LawnGreen.Name], canny);
+                            imageBox1.Image = frameOverlay.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
+                            frameOverlay.Dispose();
+                            canny.Dispose();
+                        }
+                        break;
+                    case (VideoMode.Contour):
+                        Image<Bgr, byte> contourImg = new Image<Bgr, byte>(imgWidth, imgHeight);
+                        GetContours(graySmooth, out contourImg);
+                        imageBox1.Image = contourImg.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
+                        contourImg.Dispose();
+                        break;
+                    case (VideoMode.Hue_Gray):
+                        Image<Gray, byte> hueImgGray = new Image<Gray, byte>(imgWidth, imgHeight);
+                        using (Image<Bgr, byte> grayImg = new Image<Bgr, byte>(mat.Bitmap))
+                        {
+                            GetHueGray(grayImg, out hueImgGray);
+                            imageBox1.Image = hueImgGray.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
+                        }
+                        break;
+                    case (VideoMode.Laplacian):
+                        using (Image<Gray, byte> gray = frame.Convert<Gray, byte>())
+                        using (Image<Gray, float> laplacianImg = gray.Laplace(5))
+                        {
+                            imageBox1.Image = laplacianImg.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
+                        }
+                        break;
+                    case (VideoMode.Sobel):
+                        using (Image<Gray, byte> gray = frame.Convert<Gray, byte>())
+                        using (Image<Gray, float> sobelImg = gray.Sobel(1, 1, 5))
+                        {
+                            imageBox1.Image = sobelImg.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
+                        }
+                        break;
+                    case (VideoMode.Binary):
+                        using (Image<Gray, byte> gray = frame.Convert<Gray, byte>())
+                        using (Image<Gray, byte> imgBinary = new Image<Gray, byte>(imgWidth, imgHeight))
+                        {
+                            CvInvoke.Threshold(gray, imgBinary, binaryMin, binaryMax, Emgu.CV.CvEnum.ThresholdType.Binary);
+                            imageBox1.Image = imgBinary.Flip(Emgu.CV.CvEnum.FlipType.Horizontal);
+                        }
+                        break;
+                    case (VideoMode.FeaturesTracking):
+                        imageBox1.Image = DrawFeatures(mat);
+                        break;
                 }
             }
         }
@@ -223,13 +196,6 @@ namespace VideoProcessing
             }
         }
 
-        private void GetScaledImages(Mat src, out VectorOfVectorOfPoint eigenValues, out VectorOfVectorOfPoint eigenVectors)
-        {
-            eigenValues = new VectorOfVectorOfPoint();
-            eigenVectors = new VectorOfVectorOfPoint();
-            CvInvoke.SVDecomp(src, eigenValues, eigenVectors, new Mat(), Emgu.CV.CvEnum.SvdFlag.ModifyA);
-        }
-
         private void GetContours(Image<Gray, byte> grayImg, out Image<Bgr, byte> outImg)
         {
 
@@ -246,13 +212,6 @@ namespace VideoProcessing
             );
             CvInvoke.DrawContours(temp, contours, -1, redScalar);
             outImg = temp;
-        }
-
-        private void SetHistogram(Emgu.CV.UI.HistogramBox histogramBox, Image<Bgr, byte> frame)
-        {
-            histogramBox.ClearHistogram();
-            histogramBox.GenerateHistograms(frame, 255);
-            histogramBox.Refresh();
         }
 
         private void GetHueGray(Image<Bgr, byte> img, out Image<Gray, byte> hueGrayImg)
@@ -302,7 +261,8 @@ namespace VideoProcessing
                 int.TryParse(binaryMaxTxt.Text, out binaryMax)
             )
             {
-                binMin = new Gray(binaryMin); binMax = new Gray(binaryMax);
+                BinMin = new Gray(binaryMin); 
+                BinMax = new Gray(binaryMax);
                 return true;
             }
             return false;
@@ -336,18 +296,41 @@ namespace VideoProcessing
         private void VideoInputRadioBttn_CheckChanged(object sender, EventArgs e)
         {
             RadioButton chk = sender as RadioButton;
-            isColor = (chk.Name == colorRadio.Name && chk.Checked);
-            isGray = (chk.Name == grayRadio.Name && chk.Checked);
-            isContour = (chk.Name == contourRadio.Name && chk.Checked);
-            isCannyHierarchy = (chk.Name == cannyHierarchyRadio.Name && chk.Checked);
-            isHueShapes = (chk.Name == hueGrayRadio.Name && chk.Checked);
-            isLaplacion = (chk.Name == laplacianRadio.Name && chk.Checked);
-            isSobel = (chk.Name == sobelRadio.Name && chk.Checked);
-            isBinary = (chk.Name == binaryRadio.Name && chk.Checked);
-            isFeatures = (chk.Name == featuresRadio.Name && chk.Checked);
-            if(isFeatures && model == null)
+            if (chk.Checked)
             {
-                MessageBox.Show("Cannot track image until model is set. Please set Model first.");
+                switch (chk.Name) {
+                    case "colorRadio":
+                        videoMode = VideoMode.Color;
+                        break;
+                    case "grayRadio":
+                        videoMode = VideoMode.Gray;
+                        break;
+                    case "contourRadio":
+                        videoMode = VideoMode.Contour;
+                        break;
+                    case "cannyHierarchyRadio":
+                        videoMode = VideoMode.Canny;
+                        break;
+                    case "hueGrayRadio":
+                        videoMode = VideoMode.Hue_Gray;
+                        break;
+                    case "laplacianRadio":
+                        videoMode = VideoMode.Laplacian;
+                        break;
+                    case "sobelRadio":
+                        videoMode = VideoMode.Sobel;
+                        break;
+                    case "binaryRadio":
+                        videoMode = VideoMode.Binary;
+                        break;
+                    case "featuresRadio":
+                        videoMode = VideoMode.FeaturesTracking;
+                        if (model == null)
+                        {
+                            MessageBox.Show("Cannot track image until model is set. Please set Model first.");
+                        }
+                        break;
+                }
             }
         }
 
@@ -360,7 +343,8 @@ namespace VideoProcessing
         {
             imageBox1.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.PanAndZoom;
             OpenFileDialog open = new OpenFileDialog();
-            if(open.ShowDialog() == DialogResult.OK)
+
+            if (open.ShowDialog() == DialogResult.OK)
             {
                 this.imgSrc = new Image<Bgr, byte>(open.FileName);
                 imageBox1.Image = imgSrc;
@@ -373,18 +357,24 @@ namespace VideoProcessing
             imgGray = imgSrc.Convert<Gray, byte>();
 
             for (int y = 0; y < imgSrc.Height; ++y)
+            {
                 for (int x = 0; x < imgSrc.Width; ++x)
                 {
                     Color clr = Color.FromArgb(imgSrc.Data[y, x, 2], imgSrc.Data[y, x, 1], imgSrc.Data[y, x, 0]);
                     imgGray.Data[y, x, 0] = (byte)(clr.GetHue() * hueByteRatio);
                 }
+            }
+
             imageBox1.Image = imgGray;
         }
 
         private void cannyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            imgGray = imgSrc.Convert<Gray, byte>();
-            imageBox1.Image = imgGray.SmoothGaussian(5).Canny(15, 25);
+            if (imgSrc != null)
+            {
+                imgGray = imgSrc.Convert<Gray, byte>();
+                imageBox1.Image = imgGray.SmoothGaussian(5).Canny(15, 25);
+            }
         }
 
         private void txtBox_Click(object sender, EventArgs e)
@@ -395,11 +385,10 @@ namespace VideoProcessing
 
         private void setModelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Mat m = new Mat();
-            capture.Retrieve(m);
-            model = m;
-            imageBox2.Image = 
-                new Image<Bgr, byte>(model.Bitmap).Resize(imageBox2.Width, imageBox2.Height, Emgu.CV.CvEnum.Inter.Linear);
+            Mat mat = new Mat();
+            capture.Retrieve(mat);
+            model = mat;
+            imageBox2.Image = new Image<Bgr, byte>(model.Bitmap).Resize(imageBox2.Width, imageBox2.Height, Emgu.CV.CvEnum.Inter.Linear);
         }
 
         private void eigenVectorsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -407,5 +396,18 @@ namespace VideoProcessing
             VectorView eigenForm = new VectorView(imgSrc.Mat, new VectorOfVectorOfPoint(), new VectorOfVectorOfPoint());
             eigenForm.Show();
         }
+    }
+
+    public enum VideoMode
+    {
+        Color = 0,
+        Gray,
+        Contour,
+        Canny,
+        Hue_Gray,
+        Sobel,
+        Laplacian,
+        Binary,
+        FeaturesTracking
     }
 }
